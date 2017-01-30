@@ -25,11 +25,12 @@ namespace illopintu.Controllers
         }
 
         [HttpPost]
-        public void setDibujo(int[] posX, int[]posY, Boolean[] clickDrag)
+        public JsonResult setDibujo(int[] posX, int[]posY, Boolean[] clickDrag)
         {
             HttpContext.Application["dibujo_clickX"] = posX;
             HttpContext.Application["dibujo_clickY"] = posY;
             HttpContext.Application["dibujo_clickDrag"] = clickDrag;
+            return Json(true,JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult getDibujo()

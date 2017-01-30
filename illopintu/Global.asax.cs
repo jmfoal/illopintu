@@ -13,6 +13,7 @@ namespace illopintu
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            HttpContext.Current.Application["listaUsers"] = null;
             HttpContext.Current.Application["listaUsers"] = new List<String>();
         }
     }
