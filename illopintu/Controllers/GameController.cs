@@ -19,6 +19,7 @@ namespace illopintu.Controllers
                 List<String> listaUsers = HttpContext.Application["listaUsers"] as List<String>;
                 listaUsers.Add(Session["username"] as String);
                 HttpContext.Application["listaUsers"] = listaUsers;
+                ViewBag.user = Session["username"] as String;
                 return View();
             }
         }
