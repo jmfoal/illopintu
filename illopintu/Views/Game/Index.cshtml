@@ -3,5 +3,189 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<canvas id="canvas" width="750" height="750"></canvas>
+<textarea name="chat"></textarea>
+<input type="text" name="entrada" />
+<button onclick="enviar()">Send</button>
+<button onclick="limpiar()">Clean</button>
 
+<script>
+    context = document.getElementById('canvas').getContext("2d");
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    var clickX = new Array();
+    var clickY = new Array();
+    var clickDrag = new Array();
+    var paint;
+    var id;
+    var User = "patata";
+    var Dibujando = "username";
+
+    /*Metodos de dibujo*/
+
+    
+    $('#canvas').on("mousedown", (function (e) {
+        if(Dibujando==User){
+            var mouseX = e.pageX - this.offsetLeft;
+            var mouseY = e.pageY - this.offsetTop;
+
+            paint = true;
+            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+            redraw();
+        }
+    }));
+
+    $('#canvas').on("mousemove",(function(e){
+        if(Dibujando==User){
+            if (paint) {
+            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+            redraw();
+            }
+        }
+    }));
+
+    $('#canvas').on("mouseup",(function(e){
+        paint = false;
+    }));
+
+    $('#canvas').on("mouseleave",(function(e){
+        paint = false;
+    }));
+
+
+    function addClick(x, y, dragging)
+    {
+      clickX.push(x);
+      clickY.push(y);
+      clickDrag.push(dragging);
+    }
+
+    function redraw(){
+        //context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
+
+        context.strokeStyle = "#df4b26";
+        context.lineJoin = "round";
+        context.lineWidth = 10;
+
+        for(var i=0; i < clickX.length; i++) {
+          context.beginPath();
+          if(clickDrag[i] && i){
+            context.moveTo(clickX[i-1], clickY[i-1]);
+           }else{
+             context.moveTo(clickX[i]-1, clickY[i]);
+           }
+           context.lineTo(clickX[i], clickY[i]);
+           context.closePath();
+           context.stroke();
+        }
+    }
+
+    function limpiar() {
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        clickX = new Array();
+        clickY = new Array();
+        clickDrag = new Array();
+        mandarDibujo();
+    }
+
+    /*Metodos de enviar y recibir informacion*/
+
+    function mandarDibujo(){
+        objetojson = {
+            "posX": clickX,
+            "posY": clickY,
+            "clickDrag": clickDrag
+        };
+
+        $.ajax({
+           url: "/Game/setDibujo",
+           data: objetojson,
+           type: 'POST'
+        });
+
+    }
+
+    function enviar(){
+        entrada = $(":input[name=entrada]").val();
+
+        $.ajax({
+            url: "/Game/setChat",
+            type: 'POST',
+            data: entrada
+        });
+         $(":input[name=entrada]").val('');
+    }
+
+    function recibir(){
+        $.ajax({
+            url: "/Game/getChat",
+            success: escribirChat
+        });
+    }
+
+    function escribirChat(response){
+        $textarea = $("textarea[name=chat]");
+        $textarea.html('');
+        for(var i=0;i<response.length-1;i++){
+            $textarea.append(response[i]);
+        }
+    }
+
+    
+
+    /*setInterval(function (){
+        recibir();
+    },1500);*/
+
+    $(":input[name=entrada]").on('keypress',function(evento){
+       if(evento.keyCode === 13){
+           enviar();
+       }
+    });
+
+    window.onbeforeunload = function (evt) {
+
+        objetojson = {
+            "Username": user
+        };
+
+        $.ajax({
+            url: localhost + "Logout.php",
+            type: "post",
+            data: JSON.stringify(objetojson)
+        });
+    };
+    /*Recibir Dibujo*/
+    /*setInterval(function(){
+        $.ajax({
+            url: "/Game/getDibujo",
+            dataType: 'json',
+            success: establecer
+        });
+    },100);*/
+
+    function establecer(response){
+        context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+        clickX = response.posX;
+        clickY = response.posY;
+        clickDrag = response.clickDrag;
+
+
+
+        redraw();
+    }
+
+    setInterval(function () {
+        if (dibujando == user) {
+            mandarDibujo();
+        } else {
+            $.ajax({
+                url: "/Game/getDibujo",
+                dataType: 'json',
+                success: establecer
+            });
+        }
+    },100);
+
+
+
+</script>

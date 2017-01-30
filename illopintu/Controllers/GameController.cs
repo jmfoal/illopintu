@@ -12,7 +12,7 @@ namespace illopintu.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            if (Session["username"] as String == "") {
+            if (Session["username"] as String == null) {
                 ViewBag.error = "No Estas Logeado";
                 return RedirectToAction("index", "Login");
             } else {
@@ -25,10 +25,10 @@ namespace illopintu.Controllers
         }
 
         [HttpPost]
-        public void setDibujo(int[] clickX, int[]clickY, Boolean[] clickDrag)
+        public void setDibujo(int[] posX, int[]posY, Boolean[] clickDrag)
         {
-            HttpContext.Application["dibujo_clickX"] = clickX;
-            HttpContext.Application["dibujo_clickY"] = clickY;
+            HttpContext.Application["dibujo_clickX"] = posX;
+            HttpContext.Application["dibujo_clickY"] = posY;
             HttpContext.Application["dibujo_clickDrag"] = clickDrag;
         }
 
