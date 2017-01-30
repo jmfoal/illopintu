@@ -17,8 +17,8 @@
     var clickDrag = new Array();
     var paint;
     var id;
-    var User = @ViewBag.user;
-    var Dibujando = "username";
+    var User = "@ViewBag.user";
+    var Dibujando = "";
 
     /*Metodos de dibujo*/
 
@@ -175,7 +175,7 @@
     }
 
     setInterval(function () {
-        if (dibujando == user) {
+        if (Dibujando == User) {
             mandarDibujo();
         } else {
             $.ajax({
