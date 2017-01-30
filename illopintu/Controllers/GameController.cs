@@ -45,7 +45,7 @@ namespace illopintu.Controllers
                 clickDrag = clickDrag
             };
 
-            return Json(dibujo);
+            return Json(dibujo,JsonRequestBehavior.AllowGet);
         }
     }
 }
