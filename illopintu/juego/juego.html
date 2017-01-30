@@ -33,7 +33,9 @@
     var clickDrag = new Array();
     var paint;
     var id;
+    var User;
 
+    /*Metodos de dibujo*/
 
     $('#canvas').mousedown(function(e){
         var mouseX = e.pageX - this.offsetLeft;
@@ -87,24 +89,7 @@
         }
     }
 
-    function mandar(){
-        objetojson = {
-            "posX": clickX,
-            "posY": clickY,
-            "clickDrag": clickDrag
-        };
-
-
-
-        $.ajax({
-           url: localhost+"procesa.php",
-           data: JSON.stringify(objetojson),
-           type: 'POST'
-        });
-
-    }
-
-    function limpiar(){
+    function limpiar() {
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         clickX = new Array();
         clickY = new Array();
@@ -112,11 +97,28 @@
         mandar();
     }
 
+    /*Metodos de enviar y recibir informacion*/
+
+    function mandar(){
+        objetojson = {
+            "posX": clickX,
+            "posY": clickY,
+            "clickDrag": clickDrag
+        };
+
+        $.ajax({
+           url: "/GameController/setDibujo",
+           data: JSON.stringify(objetojson),
+           type: 'POST'
+        });
+
+    }    
+
     function enviar(){
         entrada = $(":input[name=entrada]").val();
 
         $.ajax({
-            url: localhost+"chatM.php",
+            url: "/GameController/setChat",
             type: 'POST',
             data: entrada
         });
@@ -125,7 +127,7 @@
 
     function recibir(){
         $.ajax({
-            url: localhost+"chatR.php",
+            url: "/GameController/getChat",
             success: escribirChat
         });
     }
@@ -152,14 +154,27 @@
        }
     });
 
-    /*setInterval(function(){
+    window.onbeforeunload = function (evt) {
+
+        objetojson = {
+            "Username": user
+        };
+
         $.ajax({
-            url: localhost+"enviar.php",
+            url: localhost + "Logout.php",
+            type: "post",
+            data: JSON.stringify(objetojson)
+        });
+    };
+    /*Recibir Dibujo*/
+    setInterval(function(){
+        $.ajax({
+            url: "/GameController/getDibujo",
             dataType: 'json',
             success: establecer
         });
     },100);
-
+    /*
     setInterval(function (){
         recibir();
     },2500);*/
