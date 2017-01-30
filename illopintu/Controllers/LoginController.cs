@@ -19,7 +19,8 @@ namespace illopintu.Controllers
 
         public ActionResult errorLogin()
         {
-            return View();
+            ViewBag.error = "Error de Login";
+            return RedirectToAction("index");
         }
 
         [HttpPost]
