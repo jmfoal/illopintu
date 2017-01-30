@@ -17,33 +17,39 @@
     var clickDrag = new Array();
     var paint;
     var id;
-    var User;
+    var User = "patata";
+    var Dibujando = "username";
 
     /*Metodos de dibujo*/
 
-    $('#canvas').mousedown(function(e){
-        var mouseX = e.pageX - this.offsetLeft;
-        var mouseY = e.pageY - this.offsetTop;
+    
+    $('#canvas').on("mousedown", (function (e) {
+        if(Dibujando==User){
+            var mouseX = e.pageX - this.offsetLeft;
+            var mouseY = e.pageY - this.offsetTop;
 
-        paint = true;
-        addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-        redraw();
-    });
-
-    $('#canvas').mousemove(function(e){
-        if(paint){
-        addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-        redraw();
+            paint = true;
+            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+            redraw();
         }
-    });
+    }));
 
-    $('#canvas').mouseup(function(e){
-        paint = false;
-    });
+    $('#canvas').on("mousemove",(function(e){
+        if(Dibujando==User){
+            if (paint) {
+            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+            redraw();
+            }
+        }
+    }));
 
-    $('#canvas').mouseleave(function(e){
+    $('#canvas').on("mouseup",(function(e){
         paint = false;
-    });
+    }));
+
+    $('#canvas').on("mouseleave",(function(e){
+        paint = false;
+    }));
 
 
     function addClick(x, y, dragging)
@@ -78,12 +84,12 @@
         clickX = new Array();
         clickY = new Array();
         clickDrag = new Array();
-        mandar();
+        mandarDibujo();
     }
 
     /*Metodos de enviar y recibir informacion*/
 
-    function mandar(){
+    function mandarDibujo(){
         objetojson = {
             "posX": clickX,
             "posY": clickY,
@@ -91,8 +97,8 @@
         };
 
         $.ajax({
-           url: "/GameController/setDibujo",
-           data: JSON.stringify(objetojson),
+           url: "/Game/setDibujo",
+           data: objetojson,
            type: 'POST'
         });
 
@@ -102,7 +108,7 @@
         entrada = $(":input[name=entrada]").val();
 
         $.ajax({
-            url: "/GameController/setChat",
+            url: "/Game/setChat",
             type: 'POST',
             data: entrada
         });
@@ -111,7 +117,7 @@
 
     function recibir(){
         $.ajax({
-            url: "/GameController/getChat",
+            url: "/Game/getChat",
             success: escribirChat
         });
     }
@@ -124,9 +130,7 @@
         }
     }
 
-    setInterval(function(){
-        mandar();
-    },100);
+    
 
     /*setInterval(function (){
         recibir();
@@ -151,17 +155,13 @@
         });
     };
     /*Recibir Dibujo*/
-    setInterval(function(){
+    /*setInterval(function(){
         $.ajax({
-            url: "/GameController/getDibujo",
+            url: "/Game/getDibujo",
             dataType: 'json',
             success: establecer
         });
-    },100);
-    /*
-    setInterval(function (){
-        recibir();
-    },2500);*/
+    },100);*/
 
     function establecer(response){
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
@@ -173,6 +173,18 @@
 
         redraw();
     }
+
+    setInterval(function () {
+        if (dibujando == user) {
+            mandarDibujo();
+        } else {
+            $.ajax({
+                url: "/Game/getDibujo",
+                dataType: 'json',
+                success: establecer
+            });
+        }
+    },100);
 
 
 
