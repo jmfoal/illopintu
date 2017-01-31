@@ -17,12 +17,6 @@ namespace illopintu.Controllers
             return View();
         }
 
-        public ActionResult errorLogin()
-        {
-            ViewBag.error = "Error de Login";
-            return RedirectToAction("index");
-        }
-
         [HttpPost]
         public ActionResult login(String user,String password)
         {
@@ -33,7 +27,8 @@ namespace illopintu.Controllers
                 redireccion = RedirectToAction("index","game");
             } else
             {
-                redireccion = RedirectToAction("errorLogin");
+                ViewBag.error = "error de Login, Usuario o Contraseña Incorrectas";
+                redireccion = View("Index");
             }
             return redireccion;
         }
@@ -47,7 +42,8 @@ namespace illopintu.Controllers
             }
             else
             {
-                redireccion = this.errorLogin();
+                ViewBag.error = "Error de Registro, Usuario Existente";
+                redireccion = View("Index");
             }
             return redireccion;
         }        

@@ -49,6 +49,9 @@ namespace illopintu.Controllers
             return Json(dibujo,JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult setChat()
+        /*public JsonResult setChat(string User, string Mensaje)
+        {
+            
+        }*/
     }
 }
