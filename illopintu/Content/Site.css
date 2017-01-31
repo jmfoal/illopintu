@@ -34,5 +34,40 @@ textarea {
     padding:5px;
 }
 
+#chat{
+    width : 250px;
+    height : 660px;
+    background-color:white;
+    
+}
+
+.chat-container{
+    width: 250px;
+    height: 750px;
+    border: 1px solid grey;
+    margin-left:20px;
+}
+
+.chat-container, #canvas{
+    float : left;
+}
+
+.chat-container>.send{
+    width:93px;
+}
+
+.chat-container>.clear{
+    margin-top:20px;
+    width:248px;
+}
+
+body{
+    background-color:aliceblue !important; 
+}
+
+#canvas{
+    background-color:white;
+}
+
 
 
