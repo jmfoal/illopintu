@@ -3,6 +3,10 @@
     ViewBag.Title = "Index";
 }
 
+<div>
+    <h2></h2>
+</div>
+
 <canvas id="canvas" width="750" height="750"></canvas>
 
 <div class="chat-container">
@@ -131,10 +135,10 @@
     }
 
     function escribirChat(response) {
-        $textarea = $("textarea[name=chat]");
+        $textarea = $("#chat");
         $textarea.html('');
         for (var i = 0; i < response.length; i++) {
-            $textarea.append(response[i]+"\n");
+            $textarea.append("<p>"+response[i]+"</p>");
         }
     }
 
