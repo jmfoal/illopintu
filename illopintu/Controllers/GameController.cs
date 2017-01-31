@@ -15,7 +15,7 @@ namespace illopintu.Controllers
         {
             if (Session["username"] as String == null) {
                 ViewBag.error = "No Estas Logeado";
-                return RedirectToAction("index", "Login");
+                return View("index", "Login");
             } else {
                 List<String> listaUsers = HttpContext.Application["listaUsers"] as List<String>;
                 listaUsers.Add(Session["username"] as String);
@@ -63,5 +63,15 @@ namespace illopintu.Controllers
             Chat chat = new Chat();
             return Json(chat.getChat(), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult logout(string Username)
+        {
+            List<string> users = HttpContext.Application["listaUsers"] as List<String>;
+            users.Remove(Username);
+            HttpContext.Application["listaUsers"] = users;
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+
     }
 }
