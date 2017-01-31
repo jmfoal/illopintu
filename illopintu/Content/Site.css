@@ -18,10 +18,11 @@ textarea {
 
 #register,#login{
     float: left;
-    padding-left:0px;
 }
 
-.body-content,.container{
-    padding:0px !important;
+#error{
+    display:none;
 }
+
+
 
