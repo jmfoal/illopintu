@@ -48,5 +48,7 @@ namespace illopintu.Controllers
 
             return Json(dibujo,JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult setChat()
     }
 }
