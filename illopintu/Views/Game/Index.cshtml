@@ -130,8 +130,8 @@
     function escribirChat(response) {
         $textarea = $("textarea[name=chat]");
         $textarea.html('');
-        for (var i = 0; i < response.length - 1; i++) {
-            $textarea.append(response[i]);
+        for (var i = 0; i < response.length; i++) {
+            $textarea.append(response[i]+"\n");
         }
     }
 
@@ -173,5 +173,8 @@
                 success: establecer
             });
         }
-    },100);
+    }, 100);
+
+    setInterval(recibir, 1500);
+
 </script>
