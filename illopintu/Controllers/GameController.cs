@@ -1,4 +1,5 @@
-﻿using System;
+﻿using illopintu.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -49,9 +50,18 @@ namespace illopintu.Controllers
             return Json(dibujo,JsonRequestBehavior.AllowGet);
         }
 
-        /*public JsonResult setChat(string User, string Mensaje)
+        public JsonResult setChat(string User, string Mensaje)
         {
-            
-        }*/
+            // llamar aqui a la comprobacion del juego            
+            Chat chat = new Chat();
+            chat.setChat(User + ":" + Mensaje);
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getChat()
+        {
+            Chat chat = new Chat();
+            return Json(chat.getChat(), JsonRequestBehavior.AllowGet);
+        }
     }
 }
