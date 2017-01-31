@@ -107,10 +107,15 @@
     function enviar(){
         entrada = $(":input[name=entrada]").val();
 
+        json ={
+            "User": User,
+            "Mensaje": entrada
+        };
+
         $.ajax({
             url: "/Game/setChat",
             type: 'POST',
-            data: entrada
+            data: json
         });
          $(":input[name=entrada]").val('');
     }
@@ -122,19 +127,13 @@
         });
     }
 
-    function escribirChat(response){
+    function escribirChat(response) {
         $textarea = $("textarea[name=chat]");
         $textarea.html('');
-        for(var i=0;i<response.length-1;i++){
+        for (var i = 0; i < response.length - 1; i++) {
             $textarea.append(response[i]);
         }
     }
-
-    
-
-    /*setInterval(function (){
-        recibir();
-    },1500);*/
 
     $(":input[name=entrada]").on('keypress',function(evento){
        if(evento.keyCode === 13){
@@ -151,26 +150,16 @@
         $.ajax({
             url: localhost + "Logout.php",
             type: "post",
-            data: JSON.stringify(objetojson)
+            data: objetojson
         });
     };
-    /*Recibir Dibujo*/
-    /*setInterval(function(){
-        $.ajax({
-            url: "/Game/getDibujo",
-            dataType: 'json',
-            success: establecer
-        });
-    },100);*/
 
     function establecer(response){
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         clickX = response.posX;
         clickY = response.posY;
         clickDrag = response.clickDrag;
-
-
-
+        
         redraw();
     }
 
@@ -185,7 +174,4 @@
             });
         }
     },100);
-
-
-
 </script>
