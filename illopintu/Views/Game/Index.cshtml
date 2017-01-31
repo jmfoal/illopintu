@@ -4,10 +4,13 @@
 }
 
 <canvas id="canvas" width="750" height="750"></canvas>
-<textarea name="chat"></textarea>
-<input type="text" name="entrada" />
-<button class="btn btn-default" onclick="enviar()">Send</button>
-<button class="btn btn-default"onclick="limpiar()">Clean</button>
+
+<div class="chat-container">
+    <div id="chat"></div>
+    <input type="text" name="entrada" />
+    <button class="btn btn-default send" onclick="enviar()">Send</button>
+    <button class="btn btn-default clear" onclick="limpiar()">Clean</button>
+</div>
 
 <script>
     context = document.getElementById('canvas').getContext("2d");
