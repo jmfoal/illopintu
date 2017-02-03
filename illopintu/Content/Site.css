@@ -16,6 +16,10 @@ textarea {
     max-width: 280px;
 }
 
+footer{
+    clear:both;
+}
+
 #register,#login{
     float: left;
     background-color: #f0f0f5;
@@ -37,9 +41,9 @@ textarea {
 #chat{
     width : 260px;
     height : 660px;
-    background-color:white;
     overflow-y:scroll;
     overflow-x:hidden;
+    background-image: url("Images/wanwan.png");
 }
 
 #chat>p{
@@ -52,30 +56,54 @@ textarea {
 .chat-container{
     width: 260px;
     height: 750px;
-    border: 1px solid grey;
+    /*border: 1px solid grey;*/
     margin-left:20px;
 }
 
-.chat-container, #canvas{
+.chat-container, .canvas-container{
     float : left;
 }
 
 .chat-container>.send{
-    width:93px;
+    width:105px;
 }
 
 .chat-container>.clear{
-    margin-top:20px;
-    width:248px;
+    margin-top:10px;
+    width:260px;
 }
 
 body{
-    background-color:aliceblue !important; 
-}
-
-#canvas{
     background-color:white;
 }
 
+#canvas{
+    background-color:aliceblue;
+}
 
+.eg{
+    background-image: url(Images/wancanvas.png);
+}
+
+#wanwan{
+    float:left;
+}
+
+#wanwan>a>img{
+    float:left;
+    width:450px;
+    height:450px;
+}
+
+#wanwan>p{
+    margin-top:250px;
+    margin-left:100px;
+    float:right;
+    text-align:center;
+    text-transform:uppercase;
+}
+
+.easter-egg{
+    opacity:0;
+}
 

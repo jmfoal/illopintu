@@ -7,13 +7,19 @@
     <h2></h2>
 </div>
 
-<canvas id="canvas" width="750" height="750"></canvas>
+<div class="canvas-container">
+    <canvas id="canvas" width="750" height="750"></canvas>
+</div>
 
 <div class="chat-container">
     <div id="chat"></div>
     <input type="text" name="entrada" />
     <button class="btn btn-default send" onclick="enviar()">Send</button>
     <button class="btn btn-default clear" onclick="limpiar()">Clean</button>
+</div>
+
+<div class="easter-egg">
+    <button class="btn btn-default easter-egg-button" onclick="easteregg()">Eg</button>
 </div>
 
 <script>
@@ -87,6 +93,7 @@
     }
 
     function limpiar() {
+        $("#canvas").removeClass("eg");
         context.clearRect(0, 0, context.canvas.width, context.canvas.height);
         clickX = new Array();
         clickY = new Array();
@@ -168,6 +175,10 @@
         clickDrag = response.clickDrag;
         
         redraw();
+    }
+
+    function easteregg() {
+        $("#canvas").addClass("eg");
     }
 
     setInterval(function () {
