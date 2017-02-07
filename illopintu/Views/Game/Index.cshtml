@@ -3,12 +3,13 @@
     ViewBag.Title = "Index";
 }
 
-<div>
-    <h2></h2>
-</div>
-
 <div class="canvas-container">
+    <div id="logica">
+        <p class="panel-title">La palabra es: </p>
+        <p class="palabra"></p>
+    </div>
     <canvas id="canvas" width="750" height="750"></canvas>
+    
 </div>
 
 <div class="chat-container">
@@ -32,6 +33,7 @@
     var id;
     var User = "@ViewBag.user";
     var Dibujando = "patata";
+    var Palabra = "patata";
 
     /*Metodos de dibujo*/
 
@@ -155,6 +157,13 @@
        }
     });
 
+    function palabraguion() {
+        numero = Palabra.length;
+        for (i = 0; i < numero; i++) {
+            $(".palabra").append("_ ");
+        }
+    };
+
     window.onbeforeunload = function (evt) {
 
         objetojson = {
@@ -194,5 +203,9 @@
     }, 100);
 
     setInterval(recibir, 1500);
+
+    $(document).ready(function () {
+        palabraguion();
+    })
 
 </script>

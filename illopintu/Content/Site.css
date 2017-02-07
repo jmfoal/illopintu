@@ -50,7 +50,10 @@ footer{
     width:240px;
     display:block !important;
     word-break:break-all;
-    
+}
+
+#chat>input{
+    width:160px;
 }
 
 .chat-container{
@@ -65,7 +68,7 @@ footer{
 }
 
 .chat-container>.send{
-    width:105px;
+    width:100px;
 }
 
 .chat-container>.clear{
@@ -105,5 +108,11 @@ body{
 
 .easter-egg{
     opacity:0;
+}
+
+#logica{
+    position:absolute;
+    left:50%;
+    top:100px;
 }
 
