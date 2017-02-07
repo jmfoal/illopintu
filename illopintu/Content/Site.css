@@ -111,8 +111,7 @@ body{
 }
 
 #logica{
-    position:absolute;
-    left:50%;
+    text-align:center;
     top:100px;
 }
 
