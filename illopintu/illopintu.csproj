@@ -121,7 +121,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Images\wan wan.gif" />
     <Content Include="Content\Images\wancanvas.png" />
-    <Content Include="Content\Images\wanwan.png" />
+    <Content Include="Content\Images\wanwanchat.png" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
