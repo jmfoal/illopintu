@@ -18,6 +18,7 @@ textarea {
 
 footer{
     clear:both;
+    margin-top:100px;
 }
 
 #register,#login{
@@ -39,11 +40,12 @@ footer{
 }
 
 #chat{
-    width : 260px;
+    width : 370px;
     height : 660px;
     overflow-y:scroll;
     overflow-x:hidden;
     background-image: url("Images/wanwanchat.png");
+    background-repeat:space;
 }
 
 #chat>p{
@@ -57,14 +59,24 @@ footer{
 }
 
 .chat-container{
-    width: 260px;
+    width: 370px;
     height: 750px;
     /*border: 1px solid grey;*/
     margin-left:20px;
+    margin-top:77.85px;
 }
 
-.chat-container, .canvas-container{
+.canvas-container{
+    margin-top:25px;
+    margin-bottom:100px;
+}
+
+.canvas-container{
     float : left;
+}
+
+.chat-container{
+    float:right;
 }
 
 .chat-container>.send{
@@ -112,6 +124,7 @@ body{
 
 #logica{
     text-align:center;
-    top:100px;
 }
+
+
 
