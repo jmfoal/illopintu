@@ -15,6 +15,8 @@ namespace illopintu
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             HttpContext.Current.Application["listaUsers"] = null;
             HttpContext.Current.Application["listaUsers"] = new List<String>();
+            HttpContext.Current.Application["dibuja"] = null;
+            HttpContext.Current.Application["palabra"] = null;
         }
     }
 }

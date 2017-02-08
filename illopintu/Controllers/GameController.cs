@@ -16,11 +16,16 @@ namespace illopintu.Controllers
             if (Session["username"] as String == null) {
                 ViewBag.error = "No Estas Logeado";
                 return View("index", "Login");
-            } else {
-                List<String> listaUsers = HttpContext.Application["listaUsers"] as List<String>;
-                listaUsers.Add(Session["username"] as String);
-                HttpContext.Application["listaUsers"] = listaUsers;
+            } else {                
                 ViewBag.user = Session["username"] as String;
+                List<String> listaUsers = HttpContext.application["listaUsers"] as List<String>;
+                if(listaUsers.Count() == 1 && listaUsers.Contains(Session["username"] as String))
+                {
+                    HttpContext.Application["dibuja"] = Session["username"] as String;
+                    new Palabras().nuevaPalabra();
+                    ViewBag.palabra = HttpContext.Application["palabra"];
+                }
+                ViewBag.dibuja = HttpContext.Application["dibuja"] as String;
                 return View();
             }
         }
@@ -39,12 +44,16 @@ namespace illopintu.Controllers
             int[] clickX = HttpContext.Application["dibujo_clickX"] as int[];
             int[] clickY = HttpContext.Application["dibujo_clickY"] as int[];
             Boolean[] clickDrag = HttpContext.Application["dibujo_clickDrag"] as Boolean[];
+            String dibuja = HttpContext.Application["dibuja"] as String;
+            int numLetras = null;
 
             var dibujo = new
             {
                 posX = clickX,
                 posY = clickY,
-                clickDrag = clickDrag
+                clickDrag = clickDrag,
+                Dibuja = dibuja,
+                numLetras = (HttpContext.Application["palabra"] as String).Length()
             };
 
             return Json(dibujo,JsonRequestBehavior.AllowGet);
@@ -54,13 +63,28 @@ namespace illopintu.Controllers
         {
             // llamar aqui a la comprobacion del juego            
             Chat chat = new Chat();
+            Palabras palabras = new Palabras();            
             chat.setChat(User + ":" + Mensaje);
-            return Json(true, JsonRequestBehavior.AllowGet);
+            bool correcto = false;
+            String palabra = null;
+
+            if (palabras.comprobarPalabra(Mensaje))
+            {
+                correcto = true;
+                HttpContext.Application["dibuja"] = User;
+                palabras.nuevaPalabra();
+            }
+            var json = new
+            {
+                correcto = correcto,
+                palabra = HttpContext.Application["palabra"] as String
+            };
+            return Json(json, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult getChat()
         {
-            Chat chat = new Chat();
+            Chat chat = new Chat();            
             return Json(chat.getChat(), JsonRequestBehavior.AllowGet);
         }
 
