@@ -21,16 +21,17 @@ namespace illopintu.Models
             }
             Random random = new Random();
             int indice = random.Next(0, Palabras.Count());
-            HttpContext.Application["palabra"] = Palabras.ElementAt(indice);
+            HttpContext.Current.Application["palabra"] = Palabras.ElementAt(indice);
         }
 
         public bool comprobarPalabra(String palabra)
         {
             bool correcto = false;
-            if (palabra == HttpContext.Application["palabra"] as String)
+            if (palabra == HttpContext.Current.Application["palabra"] as String)
             {
                 correcto = true;
             }
+            return correcto;
         }
     }
 }

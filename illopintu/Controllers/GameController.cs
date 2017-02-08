@@ -18,11 +18,11 @@ namespace illopintu.Controllers
                 return View("index", "Login");
             } else {                
                 ViewBag.user = Session["username"] as String;
-                List<String> listaUsers = HttpContext.application["listaUsers"] as List<String>;
+                List<String> listaUsers = HttpContext.Application["listaUsers"] as List<String>;
                 if(listaUsers.Count() == 1 && listaUsers.Contains(Session["username"] as String))
                 {
                     HttpContext.Application["dibuja"] = Session["username"] as String;
-                    new Palabras().nuevaPalabra();
+                    new Palabras().NuevaPalabra();
                     ViewBag.palabra = HttpContext.Application["palabra"];
                 }
                 ViewBag.dibuja = HttpContext.Application["dibuja"] as String;
@@ -45,7 +45,6 @@ namespace illopintu.Controllers
             int[] clickY = HttpContext.Application["dibujo_clickY"] as int[];
             Boolean[] clickDrag = HttpContext.Application["dibujo_clickDrag"] as Boolean[];
             String dibuja = HttpContext.Application["dibuja"] as String;
-            int numLetras = null;
 
             var dibujo = new
             {
@@ -53,7 +52,7 @@ namespace illopintu.Controllers
                 posY = clickY,
                 clickDrag = clickDrag,
                 Dibuja = dibuja,
-                numLetras = (HttpContext.Application["palabra"] as String).Length()
+                numLetras = (HttpContext.Application["palabra"] as String).Length
             };
 
             return Json(dibujo,JsonRequestBehavior.AllowGet);
@@ -72,7 +71,7 @@ namespace illopintu.Controllers
             {
                 correcto = true;
                 HttpContext.Application["dibuja"] = User;
-                palabras.nuevaPalabra();
+                palabras.NuevaPalabra();
             }
             var json = new
             {

@@ -7,7 +7,7 @@
     <div id="logica">
         <div class="col-sm-6">
             <p class="panel-title">La palabra es: </p>
-            <p class="palabra"></p>
+            <p class="palabra">@ViewBag.Palabra</p>
         </div>
         <div class="col-sm-6">
             <p>Dibujando: </p>
@@ -40,7 +40,7 @@
     var id;
     var User = "@ViewBag.user";
     var Dibujando = "@ViewBag.dibuja";
-    var Palabra = "@ViewBag.palabra";
+    var Palabra = "@ViewBag.Palabra";
 
     /*Metodos de dibujo*/
 
@@ -147,7 +147,9 @@
 
     function comprobar(response) {
         if (response.correcto) {
+            $('#canvas').off();
             Palabra = response.Palabra;
+            $(".palabra").html(Palabra);
             alert("you did it");
         };
     }
@@ -174,9 +176,9 @@
     });
 
     window.onbeforeunload = function (evt) {
-
+        confirm();
         objetojson = {
-            "Username": user
+            "Username": User
         };
 
         $.ajax({
@@ -192,6 +194,10 @@
         clickY = response.posY;
         clickDrag = response.clickDrag;
         Dibujando = response.Dibuja;
+        if (Dibujando != User) {
+            $('#canvas').off();
+        }
+        $(".palabra").html("");
         for (i = 0; i < response.numLetras; i++) {
             $(".palabra").append("_ ");
         }

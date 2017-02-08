@@ -11,6 +11,7 @@ namespace illopintu
     {
         protected void Application_Start()
         {
+            Application.Clear();
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             HttpContext.Current.Application["listaUsers"] = null;

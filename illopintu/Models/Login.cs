@@ -30,14 +30,14 @@ namespace illopintu.Models
                     if(usuario[0] == username && usuario[1] == password)
                     {
                         correcto = true;
-                        List<string> listaUsers = HttpContext.Application["listaUsers"] as List<String>;
+                        List<string> listaUsers = HttpContext.Current.Application["listaUsers"] as List<String>;
                         if (listaUsers.Contains(username))
                         {
 
                         } else
                         {
                             listaUsers.Add(username);
-                            httpContext.Application["listaUsers"] = listaUsers;
+                            HttpContext.Current.Application["listaUsers"] = listaUsers;
                         }
                     }
                 }
