@@ -119,6 +119,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\texto %282%29.png" />
+    <Content Include="Content\Images\texto.png" />
     <Content Include="Content\Images\wan wan.gif" />
     <Content Include="Content\Images\wancanvas.png" />
     <Content Include="Content\Images\wanwanchat.png" />

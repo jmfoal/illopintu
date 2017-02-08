@@ -5,8 +5,15 @@
 
 <div class="canvas-container">
     <div id="logica">
-        <p class="panel-title">La palabra es: </p>
-        <p class="palabra"></p>
+        <div class="col-sm-6">
+            <p class="panel-title">La palabra es: </p>
+            <p class="palabra"></p>
+        </div>
+        <div class="col-sm-6">
+            <p>Dibujando: </p>
+            <p class="dibujando"></p>
+        </div>
+        
     </div>
     <canvas id="canvas" width="750" height="750"></canvas>
     
@@ -32,8 +39,8 @@
     var paint;
     var id;
     var User = "@ViewBag.user";
-    var Dibujando = "patata";
-    var Palabra = "patata";
+    var Dibujando = "@ViewBag.dibuja";
+    var Palabra = "@ViewBag.palabra";
 
     /*Metodos de dibujo*/
 
@@ -92,6 +99,7 @@
            context.closePath();
            context.stroke();
         }
+        $(".dibujando").html(Dibujando);
     }
 
     function limpiar() {
@@ -131,9 +139,17 @@
         $.ajax({
             url: "/Game/setChat",
             type: 'POST',
-            data: json
+            data: json,
+            success: comprobar
         });
          $(":input[name=entrada]").val('');
+    }
+
+    function comprobar(response) {
+        if (response.correcto) {
+            Palabra = response.Palabra;
+            alert("you did it");
+        };
     }
 
     function recibir(){
@@ -157,13 +173,6 @@
        }
     });
 
-    function palabraguion() {
-        numero = Palabra.length;
-        for (i = 0; i < numero; i++) {
-            $(".palabra").append("_ ");
-        }
-    };
-
     window.onbeforeunload = function (evt) {
 
         objetojson = {
@@ -182,6 +191,10 @@
         clickX = response.posX;
         clickY = response.posY;
         clickDrag = response.clickDrag;
+        Dibujando = response.Dibuja;
+        for (i = 0; i < response.numLetras; i++) {
+            $(".palabra").append("_ ");
+        }
         
         redraw();
     }
@@ -205,7 +218,7 @@
     setInterval(recibir, 1500);
 
     $(document).ready(function () {
-        palabraguion();
+        $(".dibujando").html(Dibujando);
     })
 
 </script>
