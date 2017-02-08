@@ -57,3 +57,9 @@ patata:Mediodia
 patata:kfktfk
 cacahuete:Bola
 cacahuete:Buzo
+cacahuete:Mediodia
+cacahuete:Bola
+cacahuete:Buzo
+cacahuete:Bola
+cacahuete:Bola
+cacahuete:Buzo

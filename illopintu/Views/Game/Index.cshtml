@@ -45,24 +45,24 @@
     /*Metodos de dibujo*/
 
     
-    $('#canvas').on("mousedown", (function (e) {
-        if(Dibujando==User){
+/*    $('#canvas').on("mousedown", (function (e) {
+       // if(Dibujando==User){
             var mouseX = e.pageX - this.offsetLeft;
             var mouseY = e.pageY - this.offsetTop;
 
             paint = true;
             addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
             redraw();
-        }
+       // }
     }));
 
     $('#canvas').on("mousemove",(function(e){
-        if(Dibujando==User){
+       // if(Dibujando==User){
             if (paint) {
             addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
             redraw();
             }
-        }
+      //  }
     }));
 
     $('#canvas').on("mouseup",(function(e){
@@ -72,7 +72,7 @@
     $('#canvas').on("mouseleave",(function(e){
         paint = false;
     }));
-
+*/
 
     function addClick(x, y, dragging)
     {
@@ -146,8 +146,7 @@
     }
 
     function comprobar(response) {
-        if (response.correcto) {
-            $('#canvas').off();
+        if (response.correcto) {            
             Palabra = response.Palabra;
             $(".palabra").html(Palabra);
             alert("you did it");
@@ -176,16 +175,16 @@
     });
 
     window.onbeforeunload = function (evt) {
-        confirm();
-        objetojson = {
-            "Username": User
-        };
+            objetojson = {
+                "Username": User
+            };
 
-        $.ajax({
-            url: localhost + "/Game/logout",
-            type: "post",
-            data: objetojson
-        });
+            $.ajax({
+                url: localhost + "/Game/logout",
+                type: "post",
+                data: objetojson,
+                async: false
+            });   
     };
 
     function establecer(response){
@@ -194,9 +193,6 @@
         clickY = response.posY;
         clickDrag = response.clickDrag;
         Dibujando = response.Dibuja;
-        if (Dibujando != User) {
-            $('#canvas').off();
-        }
         $(".palabra").html("");
         for (i = 0; i < response.numLetras; i++) {
             $(".palabra").append("_ ");
@@ -226,5 +222,39 @@
     $(document).ready(function () {
         $(".dibujando").html(Dibujando);
     })
+
+    setInterval(function () {
+        if (User == Dibujando) {
+            $('#canvas').on("mousedown", (function (e) {
+                // if(Dibujando==User){
+                var mouseX = e.pageX - this.offsetLeft;
+                var mouseY = e.pageY - this.offsetTop;
+
+                paint = true;
+                addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+                redraw();
+                // }
+            }));
+
+            $('#canvas').on("mousemove", (function (e) {
+                // if(Dibujando==User){
+                if (paint) {
+                    addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+                    redraw();
+                }
+                //  }
+            }));
+
+            $('#canvas').on("mouseup", (function (e) {
+                paint = false;
+            }));
+
+            $('#canvas').on("mouseleave", (function (e) {
+                paint = false;
+            }));
+        } else {
+            $("#canvas").off();
+        }
+    },100);
 
 </script>
